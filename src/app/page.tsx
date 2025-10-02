@@ -23,7 +23,7 @@ import jsPDF from "jspdf"
 
 export default function InvoiceGenerator() {
   const [products, setProducts] = useState<Product[]>(sampleProducts)
-  const [selectedItems, setSelectedItems] = useState<Map<string, number>>(new Map())
+  const [selectedItems, setSelectedItems] = useState<Map<string, { quantity: number; priceType: 'customer' | 'retail' | 'wholesale' }>>(new Map())
   const [invoiceNumber] = useState(generateInvoiceNumber())
   const [invoiceDate] = useState(new Date().toISOString().split("T")[0])
   const [dueDate, setDueDate] = useState(() => {
@@ -75,11 +75,18 @@ export default function InvoiceGenerator() {
     setProducts((prev) => [...prev, product])
   }
 
-  const handleAddItem = (product: Product) => {
+  const handleAddItem = (product: Product, priceType: 'customer' | 'retail' | 'wholesale' = 'customer') => {
     setSelectedItems((prev) => {
       const newMap = new Map(prev)
-      const currentQty = newMap.get(product.id) || 0
-      newMap.set(product.id, currentQty + 1)
+      const current = newMap.get(product.id)
+      if (current) {
+        newMap.set(product.id, { 
+          quantity: current.quantity + 1, 
+          priceType: priceType 
+        })
+      } else {
+        newMap.set(product.id, { quantity: 1, priceType: priceType })
+      }
       return newMap
     })
   }
@@ -87,9 +94,12 @@ export default function InvoiceGenerator() {
   const handleRemoveItem = (productId: string) => {
     setSelectedItems((prev) => {
       const newMap = new Map(prev)
-      const currentQty = newMap.get(productId) || 0
-      if (currentQty > 1) {
-        newMap.set(productId, currentQty - 1)
+      const current = newMap.get(productId)
+      if (current && current.quantity > 1) {
+        newMap.set(productId, { 
+          quantity: current.quantity - 1, 
+          priceType: current.priceType 
+        })
       } else {
         newMap.delete(productId)
       }
@@ -97,14 +107,35 @@ export default function InvoiceGenerator() {
     })
   }
 
+  const handlePriceTypeChange = (productId: string, priceType: 'customer' | 'retail' | 'wholesale') => {
+    setSelectedItems((prev) => {
+      const newMap = new Map(prev)
+      const current = newMap.get(productId)
+      if (current) {
+        newMap.set(productId, { 
+          quantity: current.quantity, 
+          priceType: priceType 
+        })
+      }
+      return newMap
+    })
+  }
+
   const invoiceItems: InvoiceItem[] = Array.from(selectedItems.entries())
-    .map(([productId, quantity]) => {
+    .map(([productId, itemData]) => {
       const product = products.find((p) => p.id === productId)
       if (!product) return null
+      
+      const currentPrice = itemData.priceType === 'customer' ? product.customerPrice :
+                          itemData.priceType === 'retail' ? product.retailPrice :
+                          product.wholesalePrice
+      
       return {
         ...product,
-        quantity,
-        lineTotal: calculateLineTotal(product.price, quantity),
+        quantity: itemData.quantity,
+        selectedPriceType: itemData.priceType,
+        currentPrice: currentPrice,
+        lineTotal: calculateLineTotal(currentPrice, itemData.quantity),
       }
     })
     .filter((item): item is InvoiceItem => item !== null)
@@ -447,13 +478,14 @@ export default function InvoiceGenerator() {
               selectedItems={selectedItems}
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
+              onPriceTypeChange={handlePriceTypeChange}
               onAddProduct={handleAddProduct}
             />
             {invoiceItems.length > 0 && (
               <div className="bg-card p-4 rounded-lg border border-border">
                 <p className="text-sm text-muted-foreground">
                   {invoiceItems.length} item(s) selected • Subtotal:{" "}
-                  <span className="font-semibold text-primary">GHS {subtotal.toFixed(2)}</span>
+                  <span className="font-semibold text-primary">${subtotal.toFixed(2)}</span>
                 </p>
               </div>
             )}

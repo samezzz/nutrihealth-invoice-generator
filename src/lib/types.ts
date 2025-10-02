@@ -2,13 +2,17 @@ export interface Product {
     id: string
     name: string
     description: string
-    price: number
+    customerPrice: number
+    retailPrice: number
+    wholesalePrice: number
     image: string
   }
   
   export interface InvoiceItem extends Product {
     quantity: number
     lineTotal: number
+    selectedPriceType: 'customer' | 'retail' | 'wholesale'
+    currentPrice: number
   }
   
   export interface SellerInfo {
