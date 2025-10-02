@@ -20,14 +20,16 @@ export function AddProductDialog({ onAddProduct }: AddProductDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    price: "",
+    customerPrice: "",
+    retailPrice: "",
+    wholesalePrice: "",
     image: "",
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.name || !formData.price) {
+    if (!formData.name || !formData.customerPrice || !formData.retailPrice || !formData.wholesalePrice) {
       return
     }
 
@@ -35,12 +37,21 @@ export function AddProductDialog({ onAddProduct }: AddProductDialogProps) {
       id: `custom-${Date.now()}`,
       name: formData.name,
       description: formData.description,
-      price: Number.parseFloat(formData.price),
+      customerPrice: Number.parseFloat(formData.customerPrice),
+      retailPrice: Number.parseFloat(formData.retailPrice),
+      wholesalePrice: Number.parseFloat(formData.wholesalePrice),
       image: formData.image || "/diverse-products-still-life.png",
     }
 
     onAddProduct(newProduct)
-    setFormData({ name: "", description: "", price: "", image: "" })
+    setFormData({ 
+      name: "", 
+      description: "", 
+      customerPrice: "", 
+      retailPrice: "", 
+      wholesalePrice: "", 
+      image: "" 
+    })
     setOpen(false)
   }
 
@@ -79,18 +90,48 @@ export function AddProductDialog({ onAddProduct }: AddProductDialogProps) {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="price">Price (GHS) *</Label>
-            <Input
-              id="price"
-              type="number"
-              step="0.01"
-              min="0"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              placeholder="0.00"
-              required
-            />
+          <div className="grid grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="customerPrice">Customer Price (GHS) *</Label>
+              <Input
+                id="customerPrice"
+                type="number"
+                step="0.01"
+                min="0"
+                value={formData.customerPrice}
+                onChange={(e) => setFormData({ ...formData, customerPrice: e.target.value })}
+                placeholder="0.00"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="retailPrice">Retail Price (GHS) *</Label>
+              <Input
+                id="retailPrice"
+                type="number"
+                step="0.01"
+                min="0"
+                value={formData.retailPrice}
+                onChange={(e) => setFormData({ ...formData, retailPrice: e.target.value })}
+                placeholder="0.00"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="wholesalePrice">Wholesale Price (GHS) *</Label>
+              <Input
+                id="wholesalePrice"
+                type="number"
+                step="0.01"
+                min="0"
+                value={formData.wholesalePrice}
+                onChange={(e) => setFormData({ ...formData, wholesalePrice: e.target.value })}
+                placeholder="0.00"
+                required
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
