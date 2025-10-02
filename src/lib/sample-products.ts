@@ -42,7 +42,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hgt20.png",
+    image: "/hgt.png",
   },
   
   // Hibiscus Ginger - 10 Tea Bags (Tin)
@@ -53,7 +53,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hgt10.png",
+    image: "/hgt.png",
   },
   
   // Hibiscus Ginger - 10 Tea Bags (Paper Tube)
@@ -97,7 +97,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hct20.png",
+    image: "/hct.png",
   },
   
   // Hibiscus Cinnamon - 10 Tea Bags (Tin)
@@ -108,7 +108,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hct10.png",
+    image: "/hct.png",
   },
   
   // Hibiscus Cinnamon - 10 Tea Bags (Paper Tube)
@@ -152,7 +152,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hst20.png",
+    image: "/hst.png",
   },
   
   // Hibiscus Senna - 10 Tea Bags (Tin)
@@ -163,7 +163,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hst10.png",
+    image: "/hst.png",
   },
   
   // Hibiscus Senna - 10 Tea Bags (Paper Tube)
@@ -207,7 +207,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hprt20.png",
+    image: "/hprt.png",
   },
   
   // Hibiscus Prekese - 10 Tea Bags (Tin)
@@ -218,7 +218,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hprt10.png",
+    image: "/hprt.png",
   },
   
   // Hibiscus Prekese - 10 Tea Bags (Paper Tube)
@@ -262,7 +262,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hot20.png",
+    image: "/hot.png",
   },
   
   // Hibiscus Orange - 10 Tea Bags (Tin)
@@ -273,7 +273,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hot10.png",
+    image: "/hot.png",
   },
   
   // Hibiscus Orange - 10 Tea Bags (Paper Tube)
@@ -317,7 +317,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hpit20.png",
+    image: "/hpit.png",
   },
   
   // Hibiscus Pineapple - 10 Tea Bags (Tin)
@@ -328,7 +328,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hpit10.png",
+    image: "/hpit.png",
   },
   
   // Hibiscus Pineapple - 10 Tea Bags (Paper Tube)
@@ -372,7 +372,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hmot20.png",
+    image: "/hmot.png",
   },
   
   // Hibiscus Moringa - 10 Tea Bags (Tin)
@@ -383,7 +383,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hmot10.png",
+    image: "/hmot.png",
   },
   
   // Hibiscus Moringa - 10 Tea Bags (Paper Tube)
@@ -427,7 +427,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hmit20.png",
+    image: "/hmit.png",
   },
   
   // Hibiscus Mint - 10 Tea Bags (Tin)
@@ -438,7 +438,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hmit10.png",
+    image: "/hmit.png",
   },
   
   // Hibiscus Mint - 10 Tea Bags (Paper Tube)
@@ -482,7 +482,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 80.00,
     retailPrice: 75.00,
     wholesalePrice: 70.00,
-    image: "/hlt20.png",
+    image: "/hlt.png",
   },
   
   // Hibiscus Lemon Grass - 10 Tea Bags (Tin)
@@ -493,7 +493,7 @@ export const sampleProducts: Product[] = [
     customerPrice: 60.00,
     retailPrice: 55.00,
     wholesalePrice: 50.00,
-    image: "/hlt10.png",
+    image: "/hlt.png",
   },
   
   // Hibiscus Lemon Grass - 10 Tea Bags (Paper Tube)
