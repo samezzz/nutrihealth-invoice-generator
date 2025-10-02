@@ -137,42 +137,52 @@ export default function InvoiceGenerator() {
     try {
       const element = invoiceRef.current
       
-      // Add a small delay to ensure all content is rendered
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // Create a simplified version without problematic CSS
+      const clonedElement = element.cloneNode(true) as HTMLElement
       
-      // Try to capture the element
-      const canvas = await html2canvas(element, {
+      // Remove all style tags and inline styles that might contain lab() functions
+      const styleTags = clonedElement.querySelectorAll('style')
+      styleTags.forEach(style => style.remove())
+      
+      // Remove problematic classes and add simple fallback styles
+      const allElements = clonedElement.querySelectorAll('*')
+      allElements.forEach(el => {
+        const htmlEl = el as HTMLElement
+        // Remove all classes that might use modern color functions
+        htmlEl.className = ''
+        // Add simple inline styles
+        htmlEl.style.color = '#000000'
+        htmlEl.style.backgroundColor = '#ffffff'
+        htmlEl.style.border = '1px solid #000000'
+      })
+      
+      // Create a temporary container
+      const tempContainer = document.createElement('div')
+      tempContainer.style.position = 'absolute'
+      tempContainer.style.left = '-9999px'
+      tempContainer.style.top = '-9999px'
+      tempContainer.style.width = element.offsetWidth + 'px'
+      tempContainer.style.backgroundColor = '#ffffff'
+      tempContainer.appendChild(clonedElement)
+      
+      document.body.appendChild(tempContainer)
+      
+      // Wait for rendering
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
+      // Capture the simplified element
+      const canvas = await html2canvas(tempContainer, {
         scale: 1.2,
         useCORS: true,
         allowTaint: true,
         logging: false,
         backgroundColor: "#ffffff",
-        width: element.offsetWidth,
-        height: element.offsetHeight,
-        scrollX: 0,
-        scrollY: 0,
-        ignoreElements: (element) => {
-          // Skip elements that might cause color parsing issues
-          return element.tagName === 'STYLE' || element.tagName === 'SCRIPT'
-        },
-        onclone: (clonedDoc) => {
-          // Remove problematic CSS that might contain lab() or other modern color functions
-          const styleSheets = clonedDoc.styleSheets
-          for (let i = 0; i < styleSheets.length; i++) {
-            try {
-              const rules = styleSheets[i].cssRules
-              for (let j = 0; j < rules.length; j++) {
-                const rule = rules[j]
-                if (rule instanceof CSSStyleRule && rule.style && rule.style.cssText.includes('lab(')) {
-                  rule.style.cssText = rule.style.cssText.replace(/lab\([^)]+\)/g, '#000000')
-                }
-              }
-            } catch {
-              // Ignore cross-origin stylesheet errors
-            }
-          }
-        }
+        width: tempContainer.offsetWidth,
+        height: tempContainer.offsetHeight
       })
+      
+      // Clean up
+      document.body.removeChild(tempContainer)
       
       // Validate canvas
       if (!canvas || canvas.width === 0 || canvas.height === 0) {
@@ -206,9 +216,20 @@ export default function InvoiceGenerator() {
     } catch (error) {
       console.error("PDF generation error:", error)
       
-      // Provide user feedback
-      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
-      alert(`PDF generation failed: ${errorMessage}. Please try using your browser's print function instead.`)
+      // Fallback: Use browser's print function
+      try {
+        // Switch to preview tab first
+        const previewTab = document.querySelector('[value="preview"]') as HTMLElement
+        if (previewTab) previewTab.click()
+        
+        // Wait a moment then trigger print
+        setTimeout(() => {
+          window.print()
+        }, 500)
+      } catch (printError) {
+        console.error("Print fallback failed:", printError)
+        alert("PDF generation failed. Please try using your browser's print function (Ctrl+P) and save as PDF.")
+      }
     } finally {
       setIsGeneratingPDF(false)
     }
