@@ -145,7 +145,7 @@ export default function InvoiceGenerator() {
         scale: 1.2,
         useCORS: true,
         allowTaint: true,
-        logging: false, // Disable logging to avoid color function errors
+        logging: false,
         backgroundColor: "#ffffff",
         width: element.offsetWidth,
         height: element.offsetHeight,
@@ -163,11 +163,11 @@ export default function InvoiceGenerator() {
               const rules = styleSheets[i].cssRules
               for (let j = 0; j < rules.length; j++) {
                 const rule = rules[j]
-                if (rule.style && rule.style.cssText.includes('lab(')) {
+                if (rule instanceof CSSStyleRule && rule.style && rule.style.cssText.includes('lab(')) {
                   rule.style.cssText = rule.style.cssText.replace(/lab\([^)]+\)/g, '#000000')
                 }
               }
-            } catch (e) {
+            } catch {
               // Ignore cross-origin stylesheet errors
             }
           }
