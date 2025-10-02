@@ -26,16 +26,12 @@ export function ShareInvoiceDialog({ open, onOpenChange, invoiceData }: ShareInv
 ${invoiceData.seller.email ? `📧 ${invoiceData.seller.email}` : ''}
 ${invoiceData.seller.taxId ? `🆔 Tax ID: ${invoiceData.seller.taxId}` : ''}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 📋 *INVOICE*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📄 Invoice #: *${invoiceData.invoiceNumber}*
 📅 Date: ${formatDate(invoiceData.invoiceDate)}
 ⏰ Due Date: ${formatDate(invoiceData.dueDate)}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 👤 *BILL TO:*
 ${clientName}
@@ -43,10 +39,8 @@ ${invoiceData.client.address || 'Address not provided'}
 ${invoiceData.client.email ? `📧 ${invoiceData.client.email}` : ''}
 ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🛍️ *ITEMS:*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
+🛍️ *ITEMS:*`
 
     // Add each item
     invoiceData.items.forEach((item, index) => {
@@ -57,9 +51,8 @@ ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
       invoiceText += `\n   📦 Qty: ${item.quantity} × ${formatCurrency(item.price)} = ${formatCurrency(item.lineTotal)}`
     })
 
-    invoiceText += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    invoiceText += `\n\n
 💰 *TOTALS:*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 💵 Subtotal: ${formatCurrency(invoiceData.subtotal)}`
 
@@ -75,9 +68,8 @@ ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
 
     // Add payment methods if available
     if (invoiceData.paymentMethods.some(method => method.details.trim() !== '')) {
-      invoiceText += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💳 *PAYMENT INFORMATION:*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
+      invoiceText += `\n\n
+💳 *PAYMENT INFORMATION:*`
 
       invoiceData.paymentMethods
         .filter(method => method.details.trim() !== '')
@@ -92,9 +84,8 @@ ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
 
     // Add notes if available
     if (invoiceData.notes) {
-      invoiceText += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      invoiceText += `\n\n
 📝 *NOTES:*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${invoiceData.notes}`
     }
 
@@ -104,10 +95,9 @@ ${invoiceData.notes}`
 ${invoiceData.latePaymentPolicy}`
     }
 
-    invoiceText += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    invoiceText += `\n\n
 🙏 Thank you for your business!
-${invoiceData.seller.businessName}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
+${invoiceData.seller.businessName}`
 
     return invoiceText
   }
