@@ -105,17 +105,60 @@ ${invoiceData.seller.businessName}`
   const handleWhatsAppShare = async () => {
     setIsWhatsAppSharing(true)
     try {
-      const invoiceText = generateInvoiceText()
+      // Create a shorter, more concise message for WhatsApp
+      const clientName = invoiceData.client.name || "Valued Client"
+      const shortMessage = `Hello ${clientName}! 
+
+Here's your invoice from ${invoiceData.seller.businessName}:
+
+📄 Invoice #: ${invoiceData.invoiceNumber}
+📅 Date: ${formatDate(invoiceData.invoiceDate)}
+⏰ Due Date: ${formatDate(invoiceData.dueDate)}
+💰 Total: ${formatCurrency(invoiceData.total)}
+
+🛍️ Items:
+${invoiceData.items.map((item, index) => `${index + 1}. ${item.name} (${item.quantity}x) - ${formatCurrency(item.lineTotal)}`).join('\n')}
+
+${invoiceData.paymentMethods.some(method => method.details.trim() !== '') 
+  ? `\n💳 Payment Details:\n${invoiceData.paymentMethods.filter(method => method.details.trim() !== '').map(method => method.details).join('\n\n')}`
+  : ''
+}
+
+Thank you for your business!
+${invoiceData.seller.businessName}
+${invoiceData.seller.phone}`
+
       const phoneNumber = invoiceData.client.phone?.replace(/\D/g, "") || ""
       
-      const whatsappUrl = phoneNumber
-        ? `https://wa.me/${phoneNumber}?text=${encodeURIComponent(invoiceText)}`
-        : `https://wa.me/?text=${encodeURIComponent(invoiceText)}`
+      // Check if message is too long (WhatsApp has URL length limits)
+      const encodedMessage = encodeURIComponent(shortMessage)
+      if (encodedMessage.length > 2000) {
+        // If too long, create an even shorter version
+        const veryShortMessage = `Hello ${clientName}! 
 
-      window.open(whatsappUrl, "_blank")
+Invoice #: ${invoiceData.invoiceNumber}
+Total: ${formatCurrency(invoiceData.total)}
+Due: ${formatDate(invoiceData.dueDate)}
+
+Thank you!
+${invoiceData.seller.businessName}`
+        
+        const whatsappUrl = phoneNumber
+          ? `https://wa.me/${phoneNumber}?text=${encodeURIComponent(veryShortMessage)}`
+          : `https://wa.me/?text=${encodeURIComponent(veryShortMessage)}`
+        
+        window.open(whatsappUrl, "_blank")
+      } else {
+        const whatsappUrl = phoneNumber
+          ? `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+          : `https://wa.me/?text=${encodedMessage}`
+        
+        window.open(whatsappUrl, "_blank")
+      }
       
     } catch (error) {
       console.error("Error sharing via WhatsApp:", error)
+      alert("Failed to open WhatsApp. Please try copying the invoice details manually.")
     } finally {
       setIsWhatsAppSharing(false)
       onOpenChange(false)
