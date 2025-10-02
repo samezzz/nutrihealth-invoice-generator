@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { ProductCatalog } from "@/components/product-catalog"
 import { InvoicePreview } from "@/components/invoice-preview"
 import { InvoiceForm } from "@/components/invoice-form"
@@ -34,7 +34,6 @@ export default function InvoiceGenerator() {
 
   const [shareDialogOpen, setShareDialogOpen] = useState(false)
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
-  const invoiceRef = useRef<HTMLDivElement>(null)
 
   const [seller, setSeller] = useState<SellerInfo>({
     businessName: "NutriHealth",
@@ -130,57 +129,37 @@ export default function InvoiceGenerator() {
   }
 
   const handleDownloadPDF = async () => {
-    if (!invoiceRef.current) return
-    
     setIsGeneratingPDF(true)
     try {
-      // Alternative approach: Use browser's print functionality
-      const element = invoiceRef.current
+      const element = document.getElementById("invoice-preview")
+      if (!element) return
       
-      // Create a new window for printing
-      const printWindow = window.open('', '_blank')
-      if (!printWindow) {
-        throw new Error("Popup blocked. Please allow popups for this site.")
-      }
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff"
+      })
       
-      // Get the HTML content
-      const htmlContent = element.outerHTML
+      const imgData = canvas.toDataURL("image/png")
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      })
       
-      // Create a complete HTML document
-      const printDocument = `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>Invoice ${invoiceData.invoiceNumber}</title>
-            <style>
-              body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
-              @media print {
-                body { margin: 0; padding: 0; }
-                @page { margin: 0; }
-              }
-            </style>
-          </head>
-          <body>
-            ${htmlContent}
-          </body>
-        </html>
-      `
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = pdf.internal.pageSize.getHeight()
+      const imgWidth = canvas.width
+      const imgHeight = canvas.height
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
+      const imgX = (pdfWidth - imgWidth * ratio) / 2
+      const imgY = 0
       
-      printWindow.document.write(printDocument)
-      printWindow.document.close()
-      
-      // Wait for content to load
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Trigger print dialog
-      printWindow.print()
-      
-      // Close the window after printing
-      printWindow.onafterprint = () => printWindow.close()
-      
+      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio)
+      pdf.save(`${invoiceData.invoiceNumber}.pdf`)
     } catch (error) {
-      console.error("PDF generation error:", error)
-      alert("Failed to generate PDF. Please try using your browser's print function (Ctrl+P) and save as PDF.")
+      console.error("Error generating PDF:", error)
     } finally {
       setIsGeneratingPDF(false)
     }
@@ -260,7 +239,7 @@ export default function InvoiceGenerator() {
           </TabsContent>
 
           <TabsContent value="preview">
-            <div ref={invoiceRef}>
+            <div id="invoice-preview">
               <InvoicePreview data={invoiceData} />
             </div>
           </TabsContent>
