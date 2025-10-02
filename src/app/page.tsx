@@ -36,7 +36,7 @@ export default function InvoiceGenerator() {
   const [seller, setSeller] = useState<SellerInfo>({
     businessName: "NutriHealth",
     address: "Parakuo Estate, Dome, Accra",
-    phone: "+233 55 398 1862",
+    phone: "+233553981862",
     email: "",
     taxId: "",
   })
@@ -63,7 +63,7 @@ export default function InvoiceGenerator() {
     },
     {
       type: "mobile",
-      details: "Provider: MTN\nPhone Number: +233 55 398 1862\nAccount Name: Nathaniel Kwame Essilfie",
+      details: "Provider: MTN\nPhone Number: +233553981862\nAccount Name: Nathaniel Kwame Essilfie",
     },
   ])
 
