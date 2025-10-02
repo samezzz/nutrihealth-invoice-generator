@@ -1,103 +1,279 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useRef } from "react"
+import { ProductCatalog } from "@/components/product-catalog"
+import { InvoicePreview } from "@/components/invoice-preview"
+import { InvoiceForm } from "@/components/invoice-form"
+import { ShareInvoiceDialog } from "@/components/share-invoice-dialog"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { sampleProducts } from "@/lib/sample-products"
+import type { InvoiceData, InvoiceItem, Product, SellerInfo, ClientInfo, PaymentMethod } from "@/lib/types"
+import {
+  generateInvoiceNumber,
+  calculateLineTotal,
+  calculateSubtotal,
+  calculateTax,
+  calculateTotal,
+} from "@/lib/invoice-utils"
+import { Download, Share2, Loader2 } from "lucide-react"
+import Image from "next/image"
+import html2canvas from "html2canvas"
+import jsPDF from "jspdf"
+
+export default function InvoiceGenerator() {
+  const [products, setProducts] = useState<Product[]>(sampleProducts)
+  const [selectedItems, setSelectedItems] = useState<Map<string, number>>(new Map())
+  const [invoiceNumber] = useState(generateInvoiceNumber())
+  const [invoiceDate] = useState(new Date().toISOString().split("T")[0])
+  const [dueDate, setDueDate] = useState(() => {
+    const date = new Date()
+    date.setDate(date.getDate() + 30)
+    return date.toISOString().split("T")[0]
+  })
+
+  const [shareDialogOpen, setShareDialogOpen] = useState(false)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
+  const invoiceRef = useRef<HTMLDivElement>(null)
+
+  const [seller, setSeller] = useState<SellerInfo>({
+    businessName: "NutriHealth",
+    address: "Dome, Accra",
+    phone: "+233 55 398 1862",
+    email: "",
+    taxId: "",
+  })
+
+  const [client, setClient] = useState<ClientInfo>({
+    name: "",
+    address: "",
+    email: "",
+    phone: "",
+  })
+
+  const [taxRate, setTaxRate] = useState(0)
+  const [discount, setDiscount] = useState(0)
+  const [notes, setNotes] = useState("Thank you for your business! We appreciate your trust in NutriHealth.")
+  const [latePaymentPolicy, setLatePaymentPolicy] = useState(
+    "Payment is due within 30 days. Late payments may incur a 2% monthly interest charge.",
+  )
+
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
+    {
+      type: "bank",
+      details:
+        "Bank Name: EcoBank\nAccount Number: 1234567890\nRouting Number: 987654321\nAccount Name: Nutrihealth",
+    },
+    {
+      type: "mobile",
+      details: "Provider: MTN\nPhone Number: +233 55 398 1862\nAccount Name: Nathaniel Kwame Essilfie",
+    },
+  ])
+
+  const handleAddProduct = (product: Product) => {
+    setProducts((prev) => [...prev, product])
+  }
+
+  const handleAddItem = (product: Product) => {
+    setSelectedItems((prev) => {
+      const newMap = new Map(prev)
+      const currentQty = newMap.get(product.id) || 0
+      newMap.set(product.id, currentQty + 1)
+      return newMap
+    })
+  }
+
+  const handleRemoveItem = (productId: string) => {
+    setSelectedItems((prev) => {
+      const newMap = new Map(prev)
+      const currentQty = newMap.get(productId) || 0
+      if (currentQty > 1) {
+        newMap.set(productId, currentQty - 1)
+      } else {
+        newMap.delete(productId)
+      }
+      return newMap
+    })
+  }
+
+  const invoiceItems: InvoiceItem[] = Array.from(selectedItems.entries())
+    .map(([productId, quantity]) => {
+      const product = products.find((p) => p.id === productId)
+      if (!product) return null
+      return {
+        ...product,
+        quantity,
+        lineTotal: calculateLineTotal(product.price, quantity),
+      }
+    })
+    .filter((item): item is InvoiceItem => item !== null)
+
+  const subtotal = calculateSubtotal(invoiceItems)
+  const taxAmount = calculateTax(subtotal, taxRate)
+  const total = calculateTotal(subtotal, taxAmount, discount)
+
+  const invoiceData: InvoiceData = {
+    invoiceNumber,
+    invoiceDate,
+    dueDate,
+    seller,
+    client,
+    items: invoiceItems,
+    subtotal,
+    taxRate,
+    taxAmount,
+    discount,
+    total,
+    paymentMethods,
+    notes,
+    latePaymentPolicy,
+  }
+
+  const handlePrint = () => {
+    window.print()
+  }
+
+  const handleDownloadPDF = async () => {
+    if (!invoiceRef.current) return
+    
+    setIsGeneratingPDF(true)
+    try {
+      const element = invoiceRef.current
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff"
+      })
+      
+      const imgData = canvas.toDataURL("image/png")
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      })
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = pdf.internal.pageSize.getHeight()
+      const imgWidth = canvas.width
+      const imgHeight = canvas.height
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
+      const imgX = (pdfWidth - imgWidth * ratio) / 2
+      const imgY = 0
+      
+      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio)
+      pdf.save(`${invoiceData.invoiceNumber}.pdf`)
+    } catch (error) {
+      console.error("Error generating PDF:", error)
+    } finally {
+      setIsGeneratingPDF(false)
+    }
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto py-8 px-4">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+              <Image src="/NutriHealth.png" alt="NutriHealth logo" width={110} height={110} className="object-cover" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">NutriHealth Invoice Generator</h1>
+              <p className="text-sm text-muted-foreground">
+                Create professional invoices for your healthy and tasty teas
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={() => setShareDialogOpen(true)} size="lg" variant="outline" className="gap-2">
+              <Share2 className="h-4 w-4" />
+              Share
+            </Button>
+            <Button onClick={handleDownloadPDF} size="lg" className="gap-2" disabled={isGeneratingPDF}>
+              {isGeneratingPDF ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+              {isGeneratingPDF ? "Generating..." : "Download PDF"}
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <Tabs defaultValue="products" className="space-y-6">
+          <TabsList className="grid w-full max-w-md grid-cols-3">
+            <TabsTrigger value="products">Products</TabsTrigger>
+            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="products" className="space-y-6">
+            <ProductCatalog
+              products={products}
+              selectedItems={selectedItems}
+              onAddItem={handleAddItem}
+              onRemoveItem={handleRemoveItem}
+              onAddProduct={handleAddProduct}
+            />
+            {invoiceItems.length > 0 && (
+              <div className="bg-card p-4 rounded-lg border border-border">
+                <p className="text-sm text-muted-foreground">
+                  {invoiceItems.length} item(s) selected • Subtotal:{" "}
+                  <span className="font-semibold text-primary">${subtotal.toFixed(2)}</span>
+                </p>
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="details">
+            <InvoiceForm
+              seller={seller}
+              client={client}
+              dueDate={dueDate}
+              taxRate={taxRate}
+              discount={discount}
+              notes={notes}
+              latePaymentPolicy={latePaymentPolicy}
+              paymentMethods={paymentMethods}
+              onSellerChange={setSeller}
+              onClientChange={setClient}
+              onDueDateChange={setDueDate}
+              onTaxRateChange={setTaxRate}
+              onDiscountChange={setDiscount}
+              onNotesChange={setNotes}
+              onLatePaymentPolicyChange={setLatePaymentPolicy}
+              onPaymentMethodsChange={setPaymentMethods}
+            />
+          </TabsContent>
+
+          <TabsContent value="preview">
+            <div ref={invoiceRef}>
+              <InvoicePreview data={invoiceData} />
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      <ShareInvoiceDialog 
+        open={shareDialogOpen} 
+        onOpenChange={setShareDialogOpen} 
+        invoiceData={invoiceData} 
+        invoiceRef={invoiceRef}
+      />
+
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          .print\\:block,
+          .print\\:block * {
+            visibility: visible;
+          }
+          button,
+          nav,
+          [role='tablist'] {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
-  );
+  )
 }

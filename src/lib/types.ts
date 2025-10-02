@@ -1,0 +1,51 @@
+export interface Product {
+    id: string
+    name: string
+    description: string
+    price: number
+    image: string
+  }
+  
+  export interface InvoiceItem extends Product {
+    quantity: number
+    lineTotal: number
+  }
+  
+  export interface SellerInfo {
+    businessName: string
+    address: string
+    phone: string
+    email: string
+    taxId: string
+    logo?: string
+  }
+  
+  export interface ClientInfo {
+    name: string
+    address: string
+    email: string
+    phone: string
+  }
+  
+  export interface PaymentMethod {
+    type: "bank" | "mobile"
+    details: string
+  }
+  
+  export interface InvoiceData {
+    invoiceNumber: string
+    invoiceDate: string
+    dueDate: string
+    seller: SellerInfo
+    client: ClientInfo
+    items: InvoiceItem[]
+    subtotal: number
+    taxRate: number
+    taxAmount: number
+    discount: number
+    total: number
+    paymentMethods: PaymentMethod[]
+    notes: string
+    latePaymentPolicy: string
+  }
+  
