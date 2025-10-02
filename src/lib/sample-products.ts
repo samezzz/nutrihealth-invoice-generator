@@ -48,7 +48,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Ginger - 10 Tea Bags (Tin)
   {
     id: "5",
-    name: "Hibiscus Ginger Tin (10)",
+    name: "Hibiscus Variety Tin (10)",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 60.00,
     retailPrice: 55.00,
@@ -100,20 +100,10 @@ export const sampleProducts: Product[] = [
     image: "/hct.png",
   },
   
-  // Hibiscus Cinnamon - 10 Tea Bags (Tin)
-  {
-    id: "10",
-    name: "Hibiscus Cinnamon Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hct.png",
-  },
-  
+
   // Hibiscus Cinnamon - 10 Tea Bags (Paper Tube)
   {
-    id: "11",
+    id: "10",
     name: "Hibiscus Cinnamon Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -124,7 +114,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Senna - 15 Tea Bags (Paperpack)
   {
-    id: "12",
+    id: "11",
     name: "Hibiscus Senna",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -135,7 +125,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Senna - 25 Tea Bags (Tin)
   {
-    id: "13",
+    id: "12",
     name: "Hibiscus Senna Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -146,7 +136,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Senna - 20 Tea Bags (Tin)
   {
-    id: "14",
+    id: "13",
     name: "Hibiscus Senna Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -155,20 +145,10 @@ export const sampleProducts: Product[] = [
     image: "/hst.png",
   },
   
-  // Hibiscus Senna - 10 Tea Bags (Tin)
-  {
-    id: "15",
-    name: "Hibiscus Senna Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hst.png",
-  },
   
   // Hibiscus Senna - 10 Tea Bags (Paper Tube)
   {
-    id: "16",
+    id: "14",
     name: "Hibiscus Senna Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -179,7 +159,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Prekese - 15 Tea Bags (Paperpack)
   {
-    id: "17",
+    id: "15",
     name: "Hibiscus Prekese",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -190,7 +170,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Prekese - 25 Tea Bags (Tin)
   {
-    id: "18",
+    id: "16",
     name: "Hibiscus Prekese Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -201,7 +181,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Prekese - 20 Tea Bags (Tin)
   {
-    id: "19",
+    id: "17",
     name: "Hibiscus Prekese Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -210,20 +190,10 @@ export const sampleProducts: Product[] = [
     image: "/hprt.png",
   },
   
-  // Hibiscus Prekese - 10 Tea Bags (Tin)
-  {
-    id: "20",
-    name: "Hibiscus Prekese Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hprt.png",
-  },
   
   // Hibiscus Prekese - 10 Tea Bags (Paper Tube)
   {
-    id: "21",
+    id: "18",
     name: "Hibiscus Prekese Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -234,7 +204,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Orange - 15 Tea Bags (Paperpack)
   {
-    id: "22",
+    id: "19",
     name: "Hibiscus Orange",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -245,7 +215,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Orange - 25 Tea Bags (Tin)
   {
-    id: "23",
+    id: "20",
     name: "Hibiscus Orange Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -256,7 +226,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Orange - 20 Tea Bags (Tin)
   {
-    id: "24",
+    id: "21",
     name: "Hibiscus Orange Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -265,20 +235,9 @@ export const sampleProducts: Product[] = [
     image: "/hot.png",
   },
   
-  // Hibiscus Orange - 10 Tea Bags (Tin)
-  {
-    id: "25",
-    name: "Hibiscus Orange Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hot.png",
-  },
-  
   // Hibiscus Orange - 10 Tea Bags (Paper Tube)
   {
-    id: "26",
+    id: "22",
     name: "Hibiscus Orange Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -289,7 +248,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Pineapple - 15 Tea Bags (Paperpack)
   {
-    id: "27",
+    id: "23",
     name: "Hibiscus Pineapple",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -300,7 +259,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Pineapple - 25 Tea Bags (Tin)
   {
-    id: "28",
+    id: "24",
     name: "Hibiscus Pineapple Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -311,7 +270,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Pineapple - 20 Tea Bags (Tin)
   {
-    id: "29",
+    id: "25",
     name: "Hibiscus Pineapple Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -320,20 +279,9 @@ export const sampleProducts: Product[] = [
     image: "/hpit.png",
   },
   
-  // Hibiscus Pineapple - 10 Tea Bags (Tin)
-  {
-    id: "30",
-    name: "Hibiscus Pineapple Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hpit.png",
-  },
-  
   // Hibiscus Pineapple - 10 Tea Bags (Paper Tube)
   {
-    id: "31",
+    id: "26",
     name: "Hibiscus Pineapple Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -344,7 +292,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Moringa - 15 Tea Bags (Paperpack)
   {
-    id: "32",
+    id: "27",
     name: "Hibiscus Moringa",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -355,7 +303,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Moringa - 25 Tea Bags (Tin)
   {
-    id: "33",
+    id: "28",
     name: "Hibiscus Moringa Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -366,7 +314,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Moringa - 20 Tea Bags (Tin)
   {
-    id: "34",
+    id: "29",
     name: "Hibiscus Moringa Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -375,20 +323,10 @@ export const sampleProducts: Product[] = [
     image: "/hmot.png",
   },
   
-  // Hibiscus Moringa - 10 Tea Bags (Tin)
-  {
-    id: "35",
-    name: "Hibiscus Moringa Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hmot.png",
-  },
   
   // Hibiscus Moringa - 10 Tea Bags (Paper Tube)
   {
-    id: "36",
+    id: "30",
     name: "Hibiscus Moringa Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -399,7 +337,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Mint - 15 Tea Bags (Paperpack)
   {
-    id: "37",
+    id: "31",
     name: "Hibiscus Mint",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -410,7 +348,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Mint - 25 Tea Bags (Tin)
   {
-    id: "38",
+    id: "32",
     name: "Hibiscus Mint Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -421,7 +359,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Mint - 20 Tea Bags (Tin)
   {
-    id: "39",
+    id: "33",
     name: "Hibiscus Mint Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -430,20 +368,9 @@ export const sampleProducts: Product[] = [
     image: "/hmit.png",
   },
   
-  // Hibiscus Mint - 10 Tea Bags (Tin)
-  {
-    id: "40",
-    name: "Hibiscus Mint Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hmit.png",
-  },
-  
   // Hibiscus Mint - 10 Tea Bags (Paper Tube)
   {
-    id: "41",
+    id: "34",
     name: "Hibiscus Mint Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -454,7 +381,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Lemon Grass - 15 Tea Bags (Paperpack)
   {
-    id: "42",
+    id: "35",
     name: "Hibiscus Lemon Grass",
     description: "Tea Bags, 52g (15 Tea Bags)",
     customerPrice: 50.00,
@@ -465,7 +392,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Lemon Grass - 25 Tea Bags (Tin)
   {
-    id: "43",
+    id: "36",
     name: "Hibiscus Lemon Grass Tin (25)",
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
@@ -476,7 +403,7 @@ export const sampleProducts: Product[] = [
   
   // Hibiscus Lemon Grass - 20 Tea Bags (Tin)
   {
-    id: "44",
+    id: "37",
     name: "Hibiscus Lemon Grass Tin (20)",
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
@@ -484,21 +411,10 @@ export const sampleProducts: Product[] = [
     wholesalePrice: 70.00,
     image: "/hlt.png",
   },
-  
-  // Hibiscus Lemon Grass - 10 Tea Bags (Tin)
-  {
-    id: "45",
-    name: "Hibiscus Lemon Grass Tin (10)",
-    description: "Tea Bags, 10 Tea Bags",
-    customerPrice: 60.00,
-    retailPrice: 55.00,
-    wholesalePrice: 50.00,
-    image: "/hlt.png",
-  },
-  
+
   // Hibiscus Lemon Grass - 10 Tea Bags (Paper Tube)
   {
-    id: "46",
+    id: "38",
     name: "Hibiscus Lemon Grass Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
@@ -509,7 +425,7 @@ export const sampleProducts: Product[] = [
   
   // Variety Gift Box - 36 Assorted Teas
   {
-    id: "47",
+    id: "39",
     name: "Variety Gift Box",
     description: "36 Assorted Teas",
     customerPrice: 360.00,
@@ -520,7 +436,7 @@ export const sampleProducts: Product[] = [
   
   // Variety Pack - 6 Assorted Teas
   {
-    id: "48",
+    id: "40",
     name: "Variety Pack",
     description: "6 Assorted Teas",
     customerPrice: 30.00,
@@ -531,7 +447,7 @@ export const sampleProducts: Product[] = [
   
   // Loose Tea in Paper Pouches
   {
-    id: "49",
+    id: "41",
     name: "Loose Tea Pouches",
     description: "Loose Tea in Paper Pouches",
     customerPrice: 70.00,
