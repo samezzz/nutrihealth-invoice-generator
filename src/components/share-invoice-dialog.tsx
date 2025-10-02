@@ -32,13 +32,11 @@ ${invoiceData.seller.taxId ? `🆔 Tax ID: ${invoiceData.seller.taxId}` : ''}
 📅 Date: ${formatDate(invoiceData.invoiceDate)}
 ⏰ Due Date: ${formatDate(invoiceData.dueDate)}
 
-
 👤 *BILL TO:*
 ${clientName}
 ${invoiceData.client.address || 'Address not provided'}
 ${invoiceData.client.email ? `📧 ${invoiceData.client.email}` : ''}
 ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
-
 
 🛍️ *ITEMS:*`
 
@@ -105,57 +103,26 @@ ${invoiceData.seller.businessName}`
   const handleWhatsAppShare = async () => {
     setIsWhatsAppSharing(true)
     try {
-      // Create a shorter, more concise message for WhatsApp
-      const clientName = invoiceData.client.name || "Valued Client"
-      const shortMessage = `Hello ${clientName}! 
-
-Here's your invoice from ${invoiceData.seller.businessName}:
-
-📄 Invoice #: ${invoiceData.invoiceNumber}
-📅 Date: ${formatDate(invoiceData.invoiceDate)}
-⏰ Due Date: ${formatDate(invoiceData.dueDate)}
-💰 Total: ${formatCurrency(invoiceData.total)}
-
-🛍️ Items:
-${invoiceData.items.map((item, index) => `${index + 1}. ${item.name} (${item.quantity}x) - ${formatCurrency(item.lineTotal)}`).join('\n')}
-
-${invoiceData.paymentMethods.some(method => method.details.trim() !== '') 
-  ? `\n💳 Payment Details:\n${invoiceData.paymentMethods.filter(method => method.details.trim() !== '').map(method => method.details).join('\n\n')}`
-  : ''
-}
-
-Thank you for your business!
-${invoiceData.seller.businessName}
-${invoiceData.seller.phone}`
-
-      const phoneNumber = invoiceData.client.phone?.replace(/\D/g, "") || ""
+      const invoiceText = generateInvoiceText()
       
-      // Check if message is too long (WhatsApp has URL length limits)
-      const encodedMessage = encodeURIComponent(shortMessage)
-      if (encodedMessage.length > 2000) {
-        // If too long, create an even shorter version
-        const veryShortMessage = `Hello ${clientName}! 
-
-Invoice #: ${invoiceData.invoiceNumber}
-Total: ${formatCurrency(invoiceData.total)}
-Due: ${formatDate(invoiceData.dueDate)}
-
-Thank you!
-${invoiceData.seller.businessName}`
-        
-        const whatsappUrl = phoneNumber
-          ? `https://wa.me/${phoneNumber}?text=${encodeURIComponent(veryShortMessage)}`
-          : `https://wa.me/?text=${encodeURIComponent(veryShortMessage)}`
-        
-        window.open(whatsappUrl, "_blank")
-      } else {
-        const whatsappUrl = phoneNumber
-          ? `https://wa.me/${phoneNumber}?text=${encodedMessage}`
-          : `https://wa.me/?text=${encodedMessage}`
-        
-        window.open(whatsappUrl, "_blank")
+      // Fix phone number formatting for WhatsApp
+      let phoneNumber = invoiceData.client.phone?.replace(/\D/g, "") || ""
+      
+      // If phone number starts with 0, replace with country code (assuming Ghana +233)
+      if (phoneNumber.startsWith("0")) {
+        phoneNumber = "233" + phoneNumber.substring(1)
       }
       
+      // If phone number doesn't start with country code, add it
+      if (phoneNumber && !phoneNumber.startsWith("233") && !phoneNumber.startsWith("+")) {
+        phoneNumber = "233" + phoneNumber
+      }
+      
+      const whatsappUrl = phoneNumber
+        ? `https://wa.me/${phoneNumber}?text=${encodeURIComponent(invoiceText)}`
+        : `https://wa.me/?text=${encodeURIComponent(invoiceText)}`
+
+      window.open(whatsappUrl, "_blank")
     } catch (error) {
       console.error("Error sharing via WhatsApp:", error)
       alert("Failed to open WhatsApp. Please try copying the invoice details manually.")
