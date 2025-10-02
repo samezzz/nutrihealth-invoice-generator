@@ -483,7 +483,7 @@ export default function InvoiceGenerator() {
               <div className="bg-card p-4 rounded-lg border border-border">
                 <p className="text-sm text-muted-foreground">
                   {invoiceItems.length} item(s) selected • Subtotal:{" "}
-                  <span className="font-semibold text-primary">${subtotal.toFixed(2)}</span>
+                  <span className="font-semibold text-primary">GHS {subtotal.toFixed(2)}</span>
                 </p>
               </div>
             )}

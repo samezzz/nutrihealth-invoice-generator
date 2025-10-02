@@ -178,7 +178,7 @@ export function ProductCatalog({
                   
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Price:</span>
-                    <span className="font-semibold">${currentPrice.toFixed(2)}</span>
+                    <span className="font-semibold">GHS {currentPrice.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -205,7 +205,7 @@ export function ProductCatalog({
                   
                   {quantity > 0 && (
                     <Badge variant="secondary">
-                      ${(currentPrice * quantity).toFixed(2)}
+                      GHS {(currentPrice * quantity).toFixed(2)}
                     </Badge>
                   )}
                 </div>
