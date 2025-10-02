@@ -166,7 +166,7 @@ export function InvoiceForm({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="discount">Discount ($)</Label>
+              <Label htmlFor="discount">Discount (GHS)</Label>
               <Input
                 id="discount"
                 type="number"

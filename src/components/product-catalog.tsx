@@ -41,7 +41,7 @@ export function ProductCatalog({
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm text-foreground truncate">{product.name}</h3>
                     <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{product.description}</p>
-                    <p className="text-sm font-bold text-primary mt-2">${product.price.toFixed(2)}</p>
+                    <p className="text-sm font-bold text-primary mt-2">GHS{product.price.toFixed(2)}</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-4">
