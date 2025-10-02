@@ -18,8 +18,6 @@ import {
 } from "@/lib/invoice-utils"
 import { Download, Share2, Loader2 } from "lucide-react"
 import Image from "next/image"
-import html2canvas from "html2canvas"
-import jsPDF from "jspdf"
 
 export default function InvoiceGenerator() {
   const [products, setProducts] = useState<Product[]>(sampleProducts)
@@ -54,14 +52,14 @@ export default function InvoiceGenerator() {
   const [discount, setDiscount] = useState(0)
   const [notes, setNotes] = useState("Thank you for your business! We appreciate your trust in NutriHealth.")
   const [latePaymentPolicy, setLatePaymentPolicy] = useState(
-    "Payment is due within 30 days. Late payments may incur a 2% monthly interest charge.",
+    "Payment is due within 90 days. Late payments may incur a 2% monthly interest charge.",
   )
 
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
     {
       type: "bank",
       details:
-        "Bank Name: EcoBank\nAccount Number: 1234567890\nRouting Number: 987654321\nAccount Name: Nutrihealth",
+        "Bank Name: Ecobank Ghana\nAccount Number: 1441000874414\nSwift Code: ECOCGHAC\nBank Address: 2 Morocco Lane, Off Independence Avenue\nAccount Name: Nathaniel Kwame Essilfie",
     },
     {
       type: "mobile",

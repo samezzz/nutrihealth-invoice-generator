@@ -46,7 +46,7 @@ ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
       if (item.description) {
         invoiceText += `\n   📝 ${item.description}`
       }
-      invoiceText += `\n   📦 Qty: ${item.quantity} × ${formatCurrency(item.price)} = ${formatCurrency(item.lineTotal)}`
+      invoiceText += `\n   📦 Qty: ${item.quantity} × ${formatCurrency(item.currentPrice)} = ${formatCurrency(item.lineTotal)}`
     })
 
     invoiceText += `\n\n
