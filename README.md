@@ -1,9 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NutriHealth Invoice Generator
+
+A modern, professional invoice generator built with Next.js and Tailwind CSS, specifically designed for health and nutrition businesses. Create beautiful, detailed invoices for your products and services with ease.
+
+## Features
+
+### 🛍️ Product Management
+- **Product Catalog**: Browse and manage your health products
+- **Add Custom Products**: Create new products with descriptions, prices, and images
+- **Product Images**: Visual product display with placeholder support
+- **Quantity Management**: Easy add/remove items with quantity controls
+
+### 📋 Invoice Creation
+- **Professional Invoice Design**: Clean, modern invoice layout
+- **Complete Invoice Details**: Invoice number, dates, due dates
+- **Itemized Billing**: Detailed line items with descriptions and quantities
+- **Tax Calculations**: Automatic tax calculations with customizable rates
+- **Discount Support**: Apply discounts to invoices
+- **Subtotal & Total Calculations**: Automatic calculations for all amounts
+
+### 👥 Business Information
+- **Seller Details**: Business name, address, phone, email, tax ID
+- **Client Information**: Customer details with contact information
+- **Payment Methods**: Multiple payment options (bank transfer, mobile money)
+- **Custom Notes**: Add notes and late payment policies
+
+### 📱 Sharing & Export
+- **PDF Generation**: Download invoices as high-quality PDF files
+- **WhatsApp Sharing**: Share comprehensive text invoices via WhatsApp
+- **Email Sharing**: Send detailed invoices via email
+- **Professional Formatting**: Well-formatted text invoices with emojis and structure
+
+### 🎨 User Interface
+- **Modern Design**: Clean, responsive interface built with Tailwind CSS
+- **Tabbed Navigation**: Easy switching between Products, Details, and Preview
+- **Real-time Preview**: See your invoice as you build it
+- **Loading States**: Smooth user experience with loading indicators
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI primitives
+- **Icons**: Lucide React
+- **PDF Generation**: html2canvas + jsPDF
+- **TypeScript**: Full type safety
+- **State Management**: React hooks
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
 
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd nutrihealth-invoice
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
@@ -14,23 +80,32 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Creating an Invoice
 
-## Learn More
+1. **Add Products**: 
+   - Browse the product catalog
+   - Add items to your invoice with desired quantities
+   - Create custom products if needed
 
-To learn more about Next.js, take a look at the following resources:
+2. **Fill Details**:
+   - Enter seller information (business details)
+   - Add client information
+   - Set invoice dates and payment terms
+   - Configure tax rates and discounts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Preview & Share**:
+   - Review your invoice in the preview tab
+   - Download as PDF or share via WhatsApp/Email
+   - All calculations are done automatically
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Sharing Invoices
 
-## Deploy on Vercel
+- **PDF Download**: Generates a high-quality PDF that matches the preview
+- **WhatsApp**: Sends a comprehensive text version with all invoice details
+- **Email**: Opens your email client with a formatted invoice message
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
