@@ -145,20 +145,32 @@ export default function InvoiceGenerator() {
         scale: 1.2,
         useCORS: true,
         allowTaint: true,
-        logging: true,
+        logging: false, // Disable logging to avoid color function errors
         backgroundColor: "#ffffff",
         width: element.offsetWidth,
         height: element.offsetHeight,
         scrollX: 0,
         scrollY: 0,
+        ignoreElements: (element) => {
+          // Skip elements that might cause color parsing issues
+          return element.tagName === 'STYLE' || element.tagName === 'SCRIPT'
+        },
         onclone: (clonedDoc) => {
-          // Force load all images
-          const images = clonedDoc.querySelectorAll('img')
-          images.forEach(img => {
-            if (!img.complete) {
-              img.src = img.src
+          // Remove problematic CSS that might contain lab() or other modern color functions
+          const styleSheets = clonedDoc.styleSheets
+          for (let i = 0; i < styleSheets.length; i++) {
+            try {
+              const rules = styleSheets[i].cssRules
+              for (let j = 0; j < rules.length; j++) {
+                const rule = rules[j]
+                if (rule.style && rule.style.cssText.includes('lab(')) {
+                  rule.style.cssText = rule.style.cssText.replace(/lab\([^)]+\)/g, '#000000')
+                }
+              }
+            } catch (e) {
+              // Ignore cross-origin stylesheet errors
             }
-          })
+          }
         }
       })
       
