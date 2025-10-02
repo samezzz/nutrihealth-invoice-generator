@@ -135,101 +135,273 @@ export default function InvoiceGenerator() {
     
     setIsGeneratingPDF(true)
     try {
-      const element = invoiceRef.current
+      // Switch to preview tab first
+      const previewTab = document.querySelector('[value="preview"]') as HTMLElement
+      if (previewTab) previewTab.click()
       
-      // Create a simplified version without problematic CSS
-      const clonedElement = element.cloneNode(true) as HTMLElement
+      // Wait for tab switch
+      await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Remove all style tags and inline styles that might contain lab() functions
-      const styleTags = clonedElement.querySelectorAll('style')
-      styleTags.forEach(style => style.remove())
-      
-      // Remove problematic classes and add simple fallback styles
-      const allElements = clonedElement.querySelectorAll('*')
-      allElements.forEach(el => {
-        const htmlEl = el as HTMLElement
-        // Remove all classes that might use modern color functions
-        htmlEl.className = ''
-        // Add simple inline styles
-        htmlEl.style.color = '#000000'
-        htmlEl.style.backgroundColor = '#ffffff'
-        htmlEl.style.border = '1px solid #000000'
-      })
-      
-      // Create a temporary container
-      const tempContainer = document.createElement('div')
-      tempContainer.style.position = 'absolute'
-      tempContainer.style.left = '-9999px'
-      tempContainer.style.top = '-9999px'
-      tempContainer.style.width = element.offsetWidth + 'px'
-      tempContainer.style.backgroundColor = '#ffffff'
-      tempContainer.appendChild(clonedElement)
-      
-      document.body.appendChild(tempContainer)
-      
-      // Wait for rendering
-      await new Promise(resolve => setTimeout(resolve, 100))
-      
-      // Capture the simplified element
-      const canvas = await html2canvas(tempContainer, {
-        scale: 1.2,
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        backgroundColor: "#ffffff",
-        width: tempContainer.offsetWidth,
-        height: tempContainer.offsetHeight
-      })
-      
-      // Clean up
-      document.body.removeChild(tempContainer)
-      
-      // Validate canvas
-      if (!canvas || canvas.width === 0 || canvas.height === 0) {
-        throw new Error("Canvas capture failed")
+      // Use browser's print function with proper styles
+      const printWindow = window.open('', '_blank')
+      if (!printWindow) {
+        throw new Error("Popup blocked. Please allow popups for this site.")
       }
       
-      const imgData = canvas.toDataURL("image/png", 0.8)
+      // Get the invoice content
+      const invoiceContent = invoiceRef.current?.innerHTML
+      if (!invoiceContent) {
+        throw new Error("Invoice content not found")
+      }
       
-      // Create PDF
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4"
-      })
+      // Create a complete HTML document for printing
+      const printDocument = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Invoice ${invoiceData.invoiceNumber}</title>
+            <meta charset="utf-8">
+            <style>
+              * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              body {
+                font-family: Arial, sans-serif;
+                line-height: 1.4;
+                color: #000;
+                background: #fff;
+                padding: 20px;
+              }
+              .card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 32px;
+                max-width: 800px;
+                margin: 0 auto;
+                background: white;
+              }
+              .flex {
+                display: flex;
+              }
+              .justify-between {
+                justify-content: space-between;
+              }
+              .items-start {
+                align-items: flex-start;
+              }
+              .items-center {
+                align-items: center;
+              }
+              .gap-4 {
+                gap: 16px;
+              }
+              .gap-3 {
+                gap: 12px;
+              }
+              .space-y-2 > * + * {
+                margin-top: 8px;
+              }
+              .space-y-4 > * + * {
+                margin-top: 16px;
+              }
+              .space-y-8 > * + * {
+                margin-top: 32px;
+              }
+              .text-2xl {
+                font-size: 24px;
+                font-weight: bold;
+              }
+              .text-4xl {
+                font-size: 36px;
+                font-weight: bold;
+              }
+              .text-sm {
+                font-size: 14px;
+              }
+              .text-xs {
+                font-size: 12px;
+              }
+              .font-bold {
+                font-weight: bold;
+              }
+              .font-semibold {
+                font-weight: 600;
+              }
+              .text-right {
+                text-align: right;
+              }
+              .text-center {
+                text-align: center;
+              }
+              .uppercase {
+                text-transform: uppercase;
+              }
+              .w-full {
+                width: 100%;
+              }
+              .max-w-sm {
+                max-width: 384px;
+              }
+              .overflow-x-auto {
+                overflow-x: auto;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                padding: 12px 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+              }
+              th {
+                font-weight: 600;
+                border-bottom: 2px solid #000;
+              }
+              .border-b-2 {
+                border-bottom: 2px solid #000;
+              }
+              .border-b {
+                border-bottom: 1px solid #ddd;
+              }
+              .py-3 {
+                padding-top: 12px;
+                padding-bottom: 12px;
+              }
+              .py-4 {
+                padding-top: 16px;
+                padding-bottom: 16px;
+              }
+              .px-2 {
+                padding-left: 8px;
+                padding-right: 8px;
+              }
+              .px-4 {
+                padding-left: 16px;
+                padding-right: 16px;
+              }
+              .py-4 {
+                padding-top: 16px;
+                padding-bottom: 16px;
+              }
+              .p-4 {
+                padding: 16px;
+              }
+              .p-8 {
+                padding: 32px;
+              }
+              .pt-4 {
+                padding-top: 16px;
+              }
+              .mb-2 {
+                margin-bottom: 8px;
+              }
+              .mb-4 {
+                margin-bottom: 16px;
+              }
+              .mt-4 {
+                margin-top: 16px;
+              }
+              .flex-shrink-0 {
+                flex-shrink: 0;
+              }
+              .rounded {
+                border-radius: 4px;
+              }
+              .rounded-lg {
+                border-radius: 8px;
+              }
+              .overflow-hidden {
+                overflow: hidden;
+              }
+              .bg-secondary {
+                background-color: #f5f5f5;
+              }
+              .text-muted-foreground {
+                color: #666;
+              }
+              .text-primary {
+                color: #000;
+              }
+              .text-foreground {
+                color: #000;
+              }
+              .text-destructive {
+                color: #dc2626;
+              }
+              .whitespace-pre-line {
+                white-space: pre-line;
+              }
+              .grid {
+                display: grid;
+              }
+              .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+              }
+              .gap-4 {
+                gap: 16px;
+              }
+              .relative {
+                position: relative;
+              }
+              .w-12 {
+                width: 48px;
+              }
+              .h-12 {
+                height: 48px;
+              }
+              .w-16 {
+                width: 64px;
+              }
+              .h-16 {
+                height: 64px;
+              }
+              .object-cover {
+                object-fit: cover;
+              }
+              .separator {
+                height: 1px;
+                background-color: #ddd;
+                margin: 16px 0;
+              }
+              @media print {
+                body {
+                  margin: 0;
+                  padding: 0;
+                }
+                .card {
+                  border: none;
+                  padding: 0;
+                  max-width: none;
+                }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="card">
+              ${invoiceContent}
+            </div>
+          </body>
+        </html>
+      `
       
-      const pdfWidth = pdf.internal.pageSize.getWidth()
-      const pdfHeight = pdf.internal.pageSize.getHeight()
-      const imgWidth = canvas.width
-      const imgHeight = canvas.height
+      printWindow.document.write(printDocument)
+      printWindow.document.close()
       
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
-      const imgX = (pdfWidth - imgWidth * ratio) / 2
-      const imgY = 0
+      // Wait for content to load
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
-      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio)
+      // Trigger print dialog
+      printWindow.print()
       
-      // Save with a unique filename
-      const fileName = `invoice-${invoiceData.invoiceNumber}-${Date.now()}.pdf`
-      pdf.save(fileName)
+      // Close the window after printing
+      printWindow.onafterprint = () => printWindow.close()
       
     } catch (error) {
       console.error("PDF generation error:", error)
-      
-      // Fallback: Use browser's print function
-      try {
-        // Switch to preview tab first
-        const previewTab = document.querySelector('[value="preview"]') as HTMLElement
-        if (previewTab) previewTab.click()
-        
-        // Wait a moment then trigger print
-        setTimeout(() => {
-          window.print()
-        }, 500)
-      } catch (printError) {
-        console.error("Print fallback failed:", printError)
-        alert("PDF generation failed. Please try using your browser's print function (Ctrl+P) and save as PDF.")
-      }
+      alert("PDF generation failed. Please try using your browser's print function (Ctrl+P) and save as PDF.")
     } finally {
       setIsGeneratingPDF(false)
     }
