@@ -439,24 +439,40 @@ export default function InvoiceGenerator() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto py-8 px-4">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+        {/* Header Section - Mobile Responsive */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 space-y-4 lg:space-y-0">
+          {/* Logo and Title Section */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div className="w-12 h-12 lg:w-12 lg:h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
               <Image src="/NutriHealth.png" alt="NutriHealth logo" width={110} height={110} className="object-cover" />
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">NutriHealth Invoice Generator</h1>
-              <p className="text-sm text-muted-foreground">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                NutriHealth Invoice Generator
+              </h1>
+              <p className="text-sm text-muted-foreground mt-1">
                 Create professional invoices for your healthy and tasty teas
               </p>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button onClick={() => setShareDialogOpen(true)} size="lg" variant="outline" className="gap-2">
+          
+          {/* Action Buttons - Mobile Responsive */}
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <Button 
+              onClick={() => setShareDialogOpen(true)} 
+              size="lg" 
+              variant="outline" 
+              className="gap-2 w-full sm:w-auto"
+            >
               <Share2 className="h-4 w-4" />
               Share
             </Button>
-            <Button onClick={handleDownloadPDF} size="lg" className="gap-2" disabled={isGeneratingPDF}>
+            <Button 
+              onClick={handleDownloadPDF} 
+              size="lg" 
+              className="gap-2 w-full sm:w-auto" 
+              disabled={isGeneratingPDF}
+            >
               {isGeneratingPDF ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               {isGeneratingPDF ? "Generating..." : "Download PDF"}
             </Button>
