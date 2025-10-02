@@ -134,33 +134,53 @@ export default function InvoiceGenerator() {
     
     setIsGeneratingPDF(true)
     try {
+      // Alternative approach: Use browser's print functionality
       const element = invoiceRef.current
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: "#ffffff"
-      })
       
-      const imgData = canvas.toDataURL("image/png")
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4"
-      })
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank')
+      if (!printWindow) {
+        throw new Error("Popup blocked. Please allow popups for this site.")
+      }
       
-      const pdfWidth = pdf.internal.pageSize.getWidth()
-      const pdfHeight = pdf.internal.pageSize.getHeight()
-      const imgWidth = canvas.width
-      const imgHeight = canvas.height
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
-      const imgX = (pdfWidth - imgWidth * ratio) / 2
-      const imgY = 0
+      // Get the HTML content
+      const htmlContent = element.outerHTML
       
-      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio)
-      pdf.save(`${invoiceData.invoiceNumber}.pdf`)
+      // Create a complete HTML document
+      const printDocument = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Invoice ${invoiceData.invoiceNumber}</title>
+            <style>
+              body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+              @media print {
+                body { margin: 0; padding: 0; }
+                @page { margin: 0; }
+              }
+            </style>
+          </head>
+          <body>
+            ${htmlContent}
+          </body>
+        </html>
+      `
+      
+      printWindow.document.write(printDocument)
+      printWindow.document.close()
+      
+      // Wait for content to load
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Trigger print dialog
+      printWindow.print()
+      
+      // Close the window after printing
+      printWindow.onafterprint = () => printWindow.close()
+      
     } catch (error) {
-      console.error("Error generating PDF:", error)
+      console.error("PDF generation error:", error)
+      alert("Failed to generate PDF. Please try using your browser's print function (Ctrl+P) and save as PDF.")
     } finally {
       setIsGeneratingPDF(false)
     }
