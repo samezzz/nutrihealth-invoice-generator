@@ -59,7 +59,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Ginger - 10 Tea Bags (Paper Tube)
   {
     id: "6",
-    name: "Hibiscus Ginger Tube",
+    name: "Hibiscus Ginger Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -104,7 +104,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Cinnamon - 10 Tea Bags (Paper Tube)
   {
     id: "10",
-    name: "Hibiscus Cinnamon Tube",
+    name: "Hibiscus Cinnamon Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -149,7 +149,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Senna - 10 Tea Bags (Paper Tube)
   {
     id: "14",
-    name: "Hibiscus Senna Tube",
+    name: "Hibiscus Senna Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -194,7 +194,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Prekese - 10 Tea Bags (Paper Tube)
   {
     id: "18",
-    name: "Hibiscus Prekese Tube",
+    name: "Hibiscus Prekese Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -238,7 +238,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Orange - 10 Tea Bags (Paper Tube)
   {
     id: "22",
-    name: "Hibiscus Orange Tube",
+    name: "Hibiscus Orange Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -282,7 +282,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Pineapple - 10 Tea Bags (Paper Tube)
   {
     id: "26",
-    name: "Hibiscus Pineapple Tube",
+    name: "Hibiscus Pineapple Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -327,7 +327,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Moringa - 10 Tea Bags (Paper Tube)
   {
     id: "30",
-    name: "Hibiscus Moringa Tube",
+    name: "Hibiscus Moringa Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -371,7 +371,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Mint - 10 Tea Bags (Paper Tube)
   {
     id: "34",
-    name: "Hibiscus Mint Tube",
+    name: "Hibiscus Mint Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
@@ -415,7 +415,7 @@ export const sampleProducts: Product[] = [
   // Hibiscus Lemon Grass - 10 Tea Bags (Paper Tube)
   {
     id: "38",
-    name: "Hibiscus Lemon Grass Tube",
+    name: "Hibiscus Lemon Grass Paper Tube",
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
