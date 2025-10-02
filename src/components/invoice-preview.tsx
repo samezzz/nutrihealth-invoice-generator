@@ -86,7 +86,7 @@ export function InvoicePreview({ data }: InvoicePreviewProps) {
                     </td>
                     <td className="py-4 px-2 text-sm text-muted-foreground">{item.description}</td>
                     <td className="py-4 px-2 text-right text-sm text-foreground">{item.quantity}</td>
-                    <td className="py-4 px-2 text-right text-sm text-foreground">{formatCurrency(item.price)}</td>
+                    <td className="py-4 px-2 text-right text-sm text-foreground">{formatCurrency(item.currentPrice)}</td>
                     <td className="py-4 px-2 text-right text-sm font-semibold text-foreground">
                       {formatCurrency(item.lineTotal)}
                     </td>

@@ -5,9 +5,9 @@ export const sampleProducts: Product[] = [
     id: "1",
     name: "Hibiscus Roots Infusions",
     description: "Loose Tea",
-    customerPrice: 80,
-    retailPrice: 60,
-    wholesalePrice: 45,
+    customerPrice: 80.00,
+    retailPrice: 60.00,
+    wholesalePrice: 45.00,
     image: "/hr.png",
   },
   {
