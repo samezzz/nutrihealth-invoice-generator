@@ -37,7 +37,7 @@ export default function InvoiceGenerator() {
 
   const [seller, setSeller] = useState<SellerInfo>({
     businessName: "NutriHealth",
-    address: "Dome, Accra",
+    address: "Parakuo Estate, Dome, Accra",
     phone: "+233 55 398 1862",
     email: "",
     taxId: "",
