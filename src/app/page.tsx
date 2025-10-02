@@ -129,10 +129,6 @@ export default function InvoiceGenerator() {
     latePaymentPolicy,
   }
 
-  const handlePrint = () => {
-    window.print()
-  }
-
   const handleDownloadPDF = async () => {
     if (!invoiceRef.current) return
     
@@ -254,8 +250,7 @@ export default function InvoiceGenerator() {
       <ShareInvoiceDialog 
         open={shareDialogOpen} 
         onOpenChange={setShareDialogOpen} 
-        invoiceData={invoiceData} 
-        invoiceRef={invoiceRef}
+        invoiceData={invoiceData}
       />
 
       <style jsx global>{`

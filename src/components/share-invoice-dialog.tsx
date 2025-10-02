@@ -11,10 +11,9 @@ interface ShareInvoiceDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   invoiceData: InvoiceData
-  invoiceRef: React.RefObject<HTMLDivElement | null>
 }
 
-export function ShareInvoiceDialog({ open, onOpenChange, invoiceData, invoiceRef }: ShareInvoiceDialogProps) {
+export function ShareInvoiceDialog({ open, onOpenChange, invoiceData }: ShareInvoiceDialogProps) {
   const [isWhatsAppSharing, setIsWhatsAppSharing] = useState(false)
   const [isEmailSharing, setIsEmailSharing] = useState(false)
 
@@ -82,7 +81,7 @@ ${invoiceData.client.phone ? `📞 ${invoiceData.client.phone}` : ''}
 
       invoiceData.paymentMethods
         .filter(method => method.details.trim() !== '')
-        .forEach((method, index) => {
+        .forEach((method) => {
           const methodType = method.type === 'bank' ? '🏦 Bank Transfer' : '📱 Mobile Money'
           invoiceText += `\n\n${methodType}:`
           invoiceText += `\n${method.details.replace(/\n/g, '\n')}`
@@ -156,7 +155,7 @@ ${invoiceData.seller.businessName}
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Share Invoice</DialogTitle>
-          <DialogDescription>Choose how you'd like to share this invoice with your client.</DialogDescription>
+          <DialogDescription>Choose how you&apos;d like to share this invoice with your client.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-3 py-4">
           <Button
