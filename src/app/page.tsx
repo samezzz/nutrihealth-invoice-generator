@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { ProductCatalog } from "@/components/product-catalog"
 import { InvoicePreview } from "@/components/invoice-preview"
 import { InvoiceForm } from "@/components/invoice-form"
@@ -69,6 +69,8 @@ export default function InvoiceGenerator() {
     },
   ])
 
+  const invoiceRef = useRef<HTMLDivElement>(null)
+
   const handleAddProduct = (product: Product) => {
     setProducts((prev) => [...prev, product])
   }
@@ -129,37 +131,75 @@ export default function InvoiceGenerator() {
   }
 
   const handleDownloadPDF = async () => {
+    if (!invoiceRef.current) return
+    
     setIsGeneratingPDF(true)
     try {
-      const element = document.getElementById("invoice-preview")
-      if (!element) return
+      const element = invoiceRef.current
+      
+      // Wait for fonts and images to load
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
       const canvas = await html2canvas(element, {
-        scale: 2,
+        scale: 1.5, // Reduced scale for better performance
         useCORS: true,
+        allowTaint: true,
         logging: false,
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        width: element.scrollWidth,
+        height: element.scrollHeight,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        onclone: (clonedDoc) => {
+          // Ensure all images are loaded in the cloned document
+          const images = clonedDoc.querySelectorAll('img')
+          images.forEach(img => {
+            if (!img.complete) {
+              img.src = img.src
+            }
+          })
+        }
       })
       
-      const imgData = canvas.toDataURL("image/png")
+      // Check if canvas is valid
+      if (!canvas || canvas.width === 0 || canvas.height === 0) {
+        throw new Error("Failed to capture invoice content")
+      }
+      
+      const imgData = canvas.toDataURL("image/png", 0.95)
+      
+      // Create PDF with better settings
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
-        format: "a4"
+        format: "a4",
+        compress: true
       })
       
       const pdfWidth = pdf.internal.pageSize.getWidth()
       const pdfHeight = pdf.internal.pageSize.getHeight()
       const imgWidth = canvas.width
       const imgHeight = canvas.height
+      
+      // Calculate dimensions to fit the page
       const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
       const imgX = (pdfWidth - imgWidth * ratio) / 2
       const imgY = 0
       
-      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio)
-      pdf.save(`${invoiceData.invoiceNumber}.pdf`)
+      // Add image to PDF
+      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio, undefined, 'FAST')
+      
+      // Save the PDF
+      const fileName = `${invoiceData.invoiceNumber}.pdf`
+      pdf.save(fileName)
+      
     } catch (error) {
       console.error("Error generating PDF:", error)
+      
+      // Fallback: Show user-friendly error message
+      alert("Failed to generate PDF. Please try again or use the print function in your browser.")
     } finally {
       setIsGeneratingPDF(false)
     }
@@ -239,7 +279,7 @@ export default function InvoiceGenerator() {
           </TabsContent>
 
           <TabsContent value="preview">
-            <div id="invoice-preview">
+            <div id="invoice-preview" ref={invoiceRef}>
               <InvoicePreview data={invoiceData} />
             </div>
           </TabsContent>
