@@ -413,7 +413,7 @@ export default function InvoiceGenerator() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-              <Image src="/NutriHealth.png" alt="NutriHealth logo" width={110} height={110} className="object-cover" />
+              <Image src="/NutriHealth.png" alt="NutriHealth logo" width={60} height={60} className="object-cover" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-foreground">NutriHealth Invoice Generator</h1>
