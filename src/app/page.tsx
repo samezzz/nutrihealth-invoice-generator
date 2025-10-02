@@ -137,23 +137,22 @@ export default function InvoiceGenerator() {
     try {
       const element = invoiceRef.current
       
-      // Wait for fonts and images to load
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Add a small delay to ensure all content is rendered
+      await new Promise(resolve => setTimeout(resolve, 500))
       
+      // Try to capture the element
       const canvas = await html2canvas(element, {
-        scale: 1.5, // Reduced scale for better performance
+        scale: 1.2,
         useCORS: true,
         allowTaint: true,
-        logging: false,
+        logging: true,
         backgroundColor: "#ffffff",
-        width: element.scrollWidth,
-        height: element.scrollHeight,
+        width: element.offsetWidth,
+        height: element.offsetHeight,
         scrollX: 0,
         scrollY: 0,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
         onclone: (clonedDoc) => {
-          // Ensure all images are loaded in the cloned document
+          // Force load all images
           const images = clonedDoc.querySelectorAll('img')
           images.forEach(img => {
             if (!img.complete) {
@@ -163,19 +162,18 @@ export default function InvoiceGenerator() {
         }
       })
       
-      // Check if canvas is valid
+      // Validate canvas
       if (!canvas || canvas.width === 0 || canvas.height === 0) {
-        throw new Error("Failed to capture invoice content")
+        throw new Error("Canvas capture failed")
       }
       
-      const imgData = canvas.toDataURL("image/png", 0.95)
+      const imgData = canvas.toDataURL("image/png", 0.8)
       
-      // Create PDF with better settings
+      // Create PDF
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
-        format: "a4",
-        compress: true
+        format: "a4"
       })
       
       const pdfWidth = pdf.internal.pageSize.getWidth()
@@ -183,23 +181,22 @@ export default function InvoiceGenerator() {
       const imgWidth = canvas.width
       const imgHeight = canvas.height
       
-      // Calculate dimensions to fit the page
       const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
       const imgX = (pdfWidth - imgWidth * ratio) / 2
       const imgY = 0
       
-      // Add image to PDF
-      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio, undefined, 'FAST')
+      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio)
       
-      // Save the PDF
-      const fileName = `${invoiceData.invoiceNumber}.pdf`
+      // Save with a unique filename
+      const fileName = `invoice-${invoiceData.invoiceNumber}-${Date.now()}.pdf`
       pdf.save(fileName)
       
     } catch (error) {
-      console.error("Error generating PDF:", error)
+      console.error("PDF generation error:", error)
       
-      // Fallback: Show user-friendly error message
-      alert("Failed to generate PDF. Please try again or use the print function in your browser.")
+      // Provide user feedback
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
+      alert(`PDF generation failed: ${errorMessage}. Please try using your browser's print function instead.`)
     } finally {
       setIsGeneratingPDF(false)
     }
