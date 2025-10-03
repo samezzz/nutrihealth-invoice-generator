@@ -14,16 +14,16 @@ export function InvoicePreview({ data }: InvoicePreviewProps) {
   return (
     <Card className="w-full max-w-4xl mx-auto print:shadow-none">
       <CardContent className="p-8 md:p-12 space-y-8">
-        {/* Header Section */}
+         {/* Header Section */}
         <div className="flex justify-between items-start">
           <div className="space-y-2">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center">
-                <Image src="/NutriHealth.png" alt="NutriHealth logo" width={110} height={110} className="object-cover" /> 
+            <div className="flex items-center gap-6">
+              <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                <Image src="/NutriHealth.png" alt="NutriHealth logo" width={60} height={60} /> 
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">{data.seller.businessName}</h1>
-                <p className="text-sm text-muted-foreground">Health & Nutrition Services</p>
+              <div className="flex-1 text-center">
+                <h1 className="text-2xl font-bold text-foreground leading-tight">{data.seller.businessName}</h1>
+                <p className="text-sm text-muted-foreground mt-1">Health & Nutrition Services</p>
               </div>
             </div>
             <div className="text-sm text-muted-foreground space-y-1 mt-4">
@@ -46,6 +46,7 @@ export function InvoicePreview({ data }: InvoicePreviewProps) {
             </div>
           </div>
         </div>
+
 
         <Separator />
 
