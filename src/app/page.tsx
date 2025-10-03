@@ -487,6 +487,16 @@ export default function InvoiceGenerator() {
           </TabsList>
 
           <TabsContent value="products" className="space-y-6">
+            {/* Selected Items Summary*/}
+            {invoiceItems.length > 0 && (
+                <div className="bg-card p-4 rounded-lg border border-border">
+                  <p className="text-sm text-muted-foreground">
+                    {invoiceItems.length} item(s) selected • Subtotal:{" "}
+                    <span className="font-semibold text-primary">GHS {subtotal.toFixed(2)}</span>
+                  </p>
+                </div>
+              )}
+        
             <ProductCatalog
               products={products}
               selectedItems={selectedItems}
@@ -495,14 +505,6 @@ export default function InvoiceGenerator() {
               onPriceTypeChange={handlePriceTypeChange}
               onAddProduct={handleAddProduct}
             />
-            {invoiceItems.length > 0 && (
-              <div className="bg-card p-4 rounded-lg border border-border">
-                <p className="text-sm text-muted-foreground">
-                  {invoiceItems.length} item(s) selected • Subtotal:{" "}
-                  <span className="font-semibold text-primary">GHS {subtotal.toFixed(2)}</span>
-                </p>
-              </div>
-            )}
           </TabsContent>
 
           <TabsContent value="details">
