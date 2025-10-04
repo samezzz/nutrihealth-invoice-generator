@@ -8,7 +8,7 @@ export const sampleProducts: Product[] = [
     description: "Loose Tea",
     customerPrice: 80.00,
     retailPrice: 80.00,
-    wholesalePrice: 75.00,
+    wholesalePrice: 72.00,
     image: "/hr.png",
   },
   
@@ -30,7 +30,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hgt.png",
   },
   
@@ -41,7 +41,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hgt.png",
   },
   
@@ -52,7 +52,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hgtube.png",
   },
   
@@ -74,7 +74,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hct.png",
   },
   
@@ -85,7 +85,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hct.png",
   },
   
@@ -97,7 +97,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hctube.png",
   },
   
@@ -119,7 +119,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hst.png",
   },
   
@@ -130,7 +130,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hst.png",
   },
   
@@ -142,7 +142,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hstube.png",
   },
   
@@ -164,7 +164,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hprt.png",
   },
   
@@ -175,7 +175,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hprt.png",
   },
   
@@ -187,7 +187,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hprtube.png",
   },
   
@@ -209,7 +209,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hot.png",
   },
   
@@ -220,7 +220,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hot.png",
   },
   
@@ -231,7 +231,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hotube.png",
   },
   
@@ -253,7 +253,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hpit.png",
   },
   
@@ -264,7 +264,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hpit.png",
   },
   
@@ -275,7 +275,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hpitube.png",
   },
   
@@ -297,7 +297,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hmot.png",
   },
   
@@ -308,7 +308,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hmot.png",
   },
   
@@ -320,7 +320,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hmotube.png",
   },
   
@@ -342,7 +342,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hmit.png",
   },
   
@@ -353,7 +353,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hmit.png",
   },
   
@@ -364,7 +364,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hmitube.png",
   },
   
@@ -386,7 +386,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 130g (25 Tea Bags)",
     customerPrice: 100.00,
     retailPrice: 85.00,
-    wholesalePrice: 80.00,
+    wholesalePrice: 84.00,
     image: "/hlt.png",
   },
   
@@ -397,7 +397,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 20 Tea Bags",
     customerPrice: 80.00,
     retailPrice: 75.00,
-    wholesalePrice: 70.00,
+    wholesalePrice: 72.00,
     image: "/hlt.png",
   },
 
@@ -408,7 +408,7 @@ export const sampleProducts: Product[] = [
     description: "Tea Bags, 10 Tea Bags",
     customerPrice: 40.00,
     retailPrice: 35.00,
-    wholesalePrice: 33.00,
+    wholesalePrice: 36.00,
     image: "/hltube.png",
   },
   
@@ -419,7 +419,7 @@ export const sampleProducts: Product[] = [
     description: "36 Assorted Teas",
     customerPrice: 360.00,
     retailPrice: 340.00,
-    wholesalePrice: 320.00,
+    wholesalePrice: 330.00,
     image: "/variety-gift.png",
   },
   
@@ -430,7 +430,7 @@ export const sampleProducts: Product[] = [
     description: "6 Assorted Teas",
     customerPrice: 30.00,
     retailPrice: 25.00,
-    wholesalePrice: 22.00,
+    wholesalePrice: 24.00,
     image: "/variety-pack.png",
   },
 
@@ -453,7 +453,7 @@ export const sampleProducts: Product[] = [
     description: "Loose Tea in Paper Pouches",
     customerPrice: 70.00,
     retailPrice: 60.00,
-    wholesalePrice: 55.00,
+    wholesalePrice: 60.00,
     image: "/loose-pouches.png",
   },
 ]
