@@ -63,7 +63,7 @@ export default function InvoiceGenerator() {
     },
     {
       type: "mobile",
-      details: "Provider: MTN\nPhone Number: +233553981862\nAccount Name: Nathaniel Kwame Essilfie",
+      details: "Provider: MTN\nMerchant ID: 974356\nMerchant Name: PillJoint Pharmacy Limited\nReference: NutriHealth",
     },
   ])
 
