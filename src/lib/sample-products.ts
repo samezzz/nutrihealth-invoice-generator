@@ -418,9 +418,9 @@ export const sampleProducts: Product[] = [
     name: "Variety Gift Box",
     description: "36 Assorted Teas",
     customerPrice: 360.00,
-    retailPrice: 340.00,
+    retailPrice: 350.00,
     wholesalePrice: 330.00,
-    image: "/variety-gift.png",
+    image: "/variety-gift.jpg",
   },
   
   // Variety Pack - 6 Assorted Teas
