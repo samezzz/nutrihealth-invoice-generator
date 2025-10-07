@@ -40,9 +40,11 @@ export function InvoicePreview({ data }: InvoicePreviewProps) {
               <p className="text-muted-foreground">
                 <span className="font-medium">Date:</span> {formatDate(data.invoiceDate)}
               </p>
-              <p className="text-muted-foreground">
-                <span className="font-medium">Due:</span> {formatDate(data.dueDate)}
-              </p>
+              {data.showDueDate !== false && (
+                <p className="text-muted-foreground">
+                  <span className="font-medium">Due:</span> {formatDate(data.dueDate)}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -157,7 +159,7 @@ export function InvoicePreview({ data }: InvoicePreviewProps) {
               <p className="text-sm text-foreground">{data.notes}</p>
             </div>
           )}
-          {data.latePaymentPolicy && (
+          {data.showLatePaymentPolicy !== false && data.latePaymentPolicy && (
             <div>
               <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">Late Payment Policy</h3>
               <p className="text-sm text-muted-foreground">{data.latePaymentPolicy}</p>

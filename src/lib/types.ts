@@ -40,6 +40,7 @@ export interface Product {
     invoiceNumber: string
     invoiceDate: string
     dueDate: string
+    showDueDate?: boolean
     seller: SellerInfo
     client: ClientInfo
     items: InvoiceItem[]
@@ -51,5 +52,6 @@ export interface Product {
     paymentMethods: PaymentMethod[]
     notes: string
     latePaymentPolicy: string
+    showLatePaymentPolicy?: boolean
   }
   

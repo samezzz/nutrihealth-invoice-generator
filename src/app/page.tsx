@@ -29,6 +29,7 @@ export default function InvoiceGenerator() {
     date.setDate(date.getDate() + 30)
     return date.toISOString().split("T")[0]
   })
+  const [showDueDate, setShowDueDate] = useState(true)
 
   const [shareDialogOpen, setShareDialogOpen] = useState(false)
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
@@ -54,6 +55,7 @@ export default function InvoiceGenerator() {
   const [latePaymentPolicy, setLatePaymentPolicy] = useState(
     "Payment is due within 90 days. Late payments may incur a 2% monthly interest charge.",
   )
+  const [showLatePaymentPolicy, setShowLatePaymentPolicy] = useState(true)
 
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
     {
@@ -146,6 +148,7 @@ export default function InvoiceGenerator() {
     invoiceNumber,
     invoiceDate,
     dueDate,
+    showDueDate,
     seller,
     client,
     items: invoiceItems,
@@ -157,6 +160,7 @@ export default function InvoiceGenerator() {
     paymentMethods,
     notes,
     latePaymentPolicy,
+    showLatePaymentPolicy,
   }
 
   const handleDownloadPDF = async () => {
@@ -512,18 +516,22 @@ export default function InvoiceGenerator() {
               seller={seller}
               client={client}
               dueDate={dueDate}
+              showDueDate={showDueDate}
               taxRate={taxRate}
               discount={discount}
               notes={notes}
               latePaymentPolicy={latePaymentPolicy}
+              showLatePaymentPolicy={showLatePaymentPolicy}
               paymentMethods={paymentMethods}
               onSellerChange={setSeller}
               onClientChange={setClient}
               onDueDateChange={setDueDate}
+              onShowDueDateChange={setShowDueDate}
               onTaxRateChange={setTaxRate}
               onDiscountChange={setDiscount}
               onNotesChange={setNotes}
               onLatePaymentPolicyChange={setLatePaymentPolicy}
+              onShowLatePaymentPolicyChange={setShowLatePaymentPolicy}
               onPaymentMethodsChange={setPaymentMethods}
             />
           </TabsContent>

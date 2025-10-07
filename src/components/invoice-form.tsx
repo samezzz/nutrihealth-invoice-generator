@@ -10,18 +10,22 @@ interface InvoiceFormProps {
   seller: SellerInfo
   client: ClientInfo
   dueDate: string
+  showDueDate: boolean
   taxRate: number
   discount: number
   notes: string
   latePaymentPolicy: string
+  showLatePaymentPolicy: boolean
   paymentMethods: PaymentMethod[]
   onSellerChange: (seller: SellerInfo) => void
   onClientChange: (client: ClientInfo) => void
   onDueDateChange: (date: string) => void
+  onShowDueDateChange: (show: boolean) => void
   onTaxRateChange: (rate: number) => void
   onDiscountChange: (discount: number) => void
   onNotesChange: (notes: string) => void
   onLatePaymentPolicyChange: (policy: string) => void
+  onShowLatePaymentPolicyChange: (show: boolean) => void
   onPaymentMethodsChange: (methods: PaymentMethod[]) => void
 }
 
@@ -29,18 +33,22 @@ export function InvoiceForm({
   seller,
   client,
   dueDate,
+  showDueDate,
   taxRate,
   discount,
   notes,
   latePaymentPolicy,
+  showLatePaymentPolicy,
   paymentMethods,
   onSellerChange,
   onClientChange,
   onDueDateChange,
+  onShowDueDateChange,
   onTaxRateChange,
   onDiscountChange,
   onNotesChange,
   onLatePaymentPolicyChange,
+  onShowLatePaymentPolicyChange,
   onPaymentMethodsChange,
 }: InvoiceFormProps) {
   return (
@@ -153,6 +161,15 @@ export function InvoiceForm({
             <div className="space-y-2">
               <Label htmlFor="dueDate">Due Date</Label>
               <Input id="dueDate" type="date" value={dueDate} onChange={(e) => onDueDateChange(e.target.value)} />
+              <div className="flex items-center gap-2">
+                <input
+                  id="showDueDate"
+                  type="checkbox"
+                  checked={showDueDate}
+                  onChange={(e) => onShowDueDateChange(e.target.checked)}
+                />
+                <Label htmlFor="showDueDate">Show due date on invoice</Label>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="taxRate">Tax Rate (%)</Label>
@@ -242,6 +259,15 @@ export function InvoiceForm({
               placeholder="Late payments may incur additional fees..."
               rows={3}
             />
+            <div className="flex items-center gap-2">
+              <input
+                id="showLatePaymentPolicy"
+                type="checkbox"
+                checked={showLatePaymentPolicy}
+                onChange={(e) => onShowLatePaymentPolicyChange(e.target.checked)}
+              />
+              <Label htmlFor="showLatePaymentPolicy">Show late payment policy on invoice</Label>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -30,7 +30,7 @@ ${invoiceData.seller.taxId ? `🆔 Tax ID: ${invoiceData.seller.taxId}` : ''}
 
 📄 Invoice #: *${invoiceData.invoiceNumber}*
 📅 Date: ${formatDate(invoiceData.invoiceDate)}
-⏰ Due Date: ${formatDate(invoiceData.dueDate)}
+${invoiceData.showDueDate !== false ? `⏰ Due Date: ${formatDate(invoiceData.dueDate)}` : ''}
 
 👤 *BILL TO:*
 ${clientName}
@@ -88,7 +88,7 @@ ${invoiceData.notes}`
     }
 
     // Add late payment policy if available
-    if (invoiceData.latePaymentPolicy) {
+    if (invoiceData.showLatePaymentPolicy !== false && invoiceData.latePaymentPolicy) {
       invoiceText += `\n\n⚠️ *LATE PAYMENT POLICY:*
 ${invoiceData.latePaymentPolicy}`
     }
