@@ -61,11 +61,11 @@ export default function InvoiceGenerator() {
     {
       type: "bank",
       details:
-        "Bank Name: Ecobank Ghana\nAccount Number: 1441000874414\nSwift Code: ECOCGHAC\nBank Address: 2 Morocco Lane, Off Independence Avenue\nAccount Name: Nathaniel Kwame Essilfie",
+        "Bank Name: SINAPI ABA SAVINGS AND LOANS\nAccount Number: 260969426301\nAccount Name: PILLJOINT PHARMACY LTD",
     },
     {
       type: "mobile",
-      details: "Provider: MTN\nMerchant ID: 974356\nMerchant Name: PillJoint Pharmacy Limited\nReference: NutriHealth",
+      details: "Provider: MTN\nMerchant ID: 974356\nMerchant Name: PillJoint Pharmacy Limited\nReference: NutriHealth\PillJoint Contact Line: 0540734749",
     },
   ])
 
