@@ -65,7 +65,7 @@ export default function InvoiceGenerator() {
     },
     {
       type: "mobile",
-      details: "Provider: MTN\nMerchant ID: 974356\nMerchant Name: PillJoint Pharmacy Limited\nReference: NutriHealth\PillJoint Contact Line: 0540734749",
+      details: "Provider: MTN\nMerchant ID: 974356\nMerchant Name: PillJoint Pharmacy Limited\nReference: NutriHealth\nPillJoint Contact Line: 0540734749",
     },
   ])
 
