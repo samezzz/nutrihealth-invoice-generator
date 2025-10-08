@@ -29,7 +29,7 @@ export default function InvoiceGenerator() {
     date.setDate(date.getDate() + 30)
     return date.toISOString().split("T")[0]
   })
-  const [showDueDate, setShowDueDate] = useState(true)
+  const [showDueDate, setShowDueDate] = useState(false)
 
   const [shareDialogOpen, setShareDialogOpen] = useState(false)
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
@@ -55,7 +55,7 @@ export default function InvoiceGenerator() {
   const [latePaymentPolicy, setLatePaymentPolicy] = useState(
     "Payment is due within 90 days. Late payments may incur a 2% monthly interest charge.",
   )
-  const [showLatePaymentPolicy, setShowLatePaymentPolicy] = useState(true)
+  const [showLatePaymentPolicy, setShowLatePaymentPolicy] = useState(false)
 
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
     {
